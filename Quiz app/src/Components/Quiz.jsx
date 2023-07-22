@@ -4,26 +4,32 @@ import "../../src/App.css";
 const Quiz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctAns, setCorrectAns] = useState(0);
+  const [ans, setAns] = useState("");
   const [score, setScore] = useState(0);
   const [preAns, setPreAns] = useState([]);
   const [isEnd, setIsEnd] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
   let isTrue;
+
+  // To Update the Ans State
   const handleClick = (ans) => {
     setIsDisable(false);
     isTrue = true;
+    setAns(ans);
+  };
+
+  // To calculate the score when next button is clicked
+  const handleEndClick = () => {
+    if (!ans) return;
     if (!preAns.includes(ans)) {
       if (quiz[currentIndex].Answer == ans) {
-        setScore(score + 2);
+        setScore(score + 1);
         setCorrectAns(correctAns + 1);
       } else {
         setScore(score - 1);
       }
       setPreAns((preAns) => [...preAns, ans]);
     }
-  };
-  
-  const handleEndClick = () => {
     if (currentIndex >= quiz.length - 1) {
       setCurrentIndex(0);
       setIsEnd(true);
@@ -31,7 +37,20 @@ const Quiz = () => {
       setCurrentIndex(currentIndex + 1);
       setIsDisable(true);
     }
+    setAns("");
   };
+  
+  // Restart The Quiz
+  const HandleBack = () => {
+    setIsEnd(false);
+    setCurrentIndex(0);
+    setCorrectAns(0);
+    setScore(0);
+    setPreAns([]);
+    setIsDisable(true);
+  };
+
+  // Return the Component
   return isEnd ? (
     <div className="flex flex-col items-center justify-center h-screen w-screen bg-gradient-to-r from-violet-500 to-fuchsia-500">
       <div className=" bg-white h-fit p-11 rounded shadow-2xl shadow-black font-mono text-3xl">
@@ -40,14 +59,9 @@ const Quiz = () => {
         <h1 className="my-2 ">Total Score : {score}</h1>
         <h1 className="my-2">Wrong Answer : {quiz.length - correctAns}</h1>
         <button
-        className="border border-black text-2xl p-2 mt-5 shadow-lg shadow-black hover:bg-fuchsia-200"
+          className="border border-black text-2xl p-2 mt-5 shadow-lg shadow-black hover:bg-fuchsia-200"
           onClick={() => {
-            setIsEnd(false);
-            setCurrentIndex(0);
-            setCorrectAns(0);
-            setScore(0);
-            setPreAns([]);
-            setIsDisable(true);
+            HandleBack();
           }}
         >
           Restart Quiz
@@ -63,15 +77,16 @@ const Quiz = () => {
         <h2 className="font-mono font-semibold text-center mt-5">
           {quiz[currentIndex].question}
         </h2>
-        {quiz[currentIndex].choices.map((ans) => {
+        {quiz[currentIndex].choices.map((ans,i) => {
           return (
             <button
-            className="block list-none text-center mt-5 font-mono py-3 px-11 rounded-lg cursor-pointer hover:bg-fuchsia-200  focus:outline-none focus:ring focus:ring-violet-300"
-              onClick={() => {
+              className="block list-none text-center mt-5 font-mono py-3 px-11 rounded-lg cursor-pointer hover:bg-fuchsia-200  focus:outline-none focus:ring focus:ring-violet-300"
+              key={i}
+              onClick={(e) => {
                 handleClick(ans);
               }}
             >
-             👉 {ans}
+              👉 {ans}
             </button>
           );
         })}
@@ -80,14 +95,15 @@ const Quiz = () => {
           className=" text-2xl text-mono p-2 px-11 my-5 shadow-lg shadow-black hover:bg-fuchsia-200"
           type="button"
           onClick={() => {
-            handleEndClick();
+            console.log(ans);
+            handleEndClick(ans);
           }}
           disabled={isDisable}
         >
           {currentIndex > quiz.length - 1 ? "Finish" : "Next"}
         </button>
         <h3>
-          (Note:-Fore Every Right answer +2 score is Added and wrong answer -1)
+          (Note:-Fore Every Right answer +1 score is Added and wrong answer -1)
         </h3>
       </div>
     </div>
