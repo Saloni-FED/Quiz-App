@@ -92,7 +92,7 @@ const Quiz = () => {
         })}
 
         <button
-          className=" text-2xl text-mono p-2 px-11 my-5 shadow-xl shadow-black hover:bg-fuchsia-200"
+          className=" text-2xl text-mono p-2 px-11 my-5 shadow-2xl shadow-black hover:bg-fuchsia-200"
           type="button"
           onClick={() => {
             console.log(ans);
