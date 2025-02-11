@@ -20,7 +20,7 @@ const QUIZ_QUESTION = [
       "window.alert",
       "All of the above",
     ],
-    Answer: "All of the above",
+    Answer: "All of the not",
   },
   {
     question: "How can a datatype be declared to be a constant type?",
