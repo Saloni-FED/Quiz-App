@@ -80,7 +80,7 @@ const Quiz = () => {
         {quiz[currentIndex].choices.map((ans,i) => {
           return (
             <button
-              className="block list-none text-center mt-4 font-mono py-3 px-12 rounded-lg cursor-pointer hover:bg-fuchsia-200  focus:outline-none focus:ring focus:ring-violet-300"
+              className="block list-none text-center mt-4 font-mono py-3 px-12 rounded-xl cursor-pointer hover:bg-fuchsia-200  focus:outline-none focus:ring focus:ring-violet-300"
               key={i}
               onClick={(e) => {
                 handleClick(ans);
