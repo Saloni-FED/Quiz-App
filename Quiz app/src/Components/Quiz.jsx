@@ -52,7 +52,7 @@ const Quiz = () => {
 
   // Return the Component
   return isEnd ? (
-    <div className="flex flex-col items-center justify-center h-screen w-screen bg-gradient-to-r from-violet-500 to-fuchsia-500 md:px-2">
+    <div className="flex flex-col items-center justify-center h-screen w-screen bg-gradient-to-r from-violet-500 to-fuchsia-500 md:px-1">
       <div className=" bg-white h-fit p-11 rounded shadow-2xl shadow-black font-mono text-3xl">
         <h1 className="my-2 ">Total Question : {quiz.length}</h1>
         <h1 className="my-2 ">Correct Answer : {correctAns}</h1>
